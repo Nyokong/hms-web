@@ -16,6 +16,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import useAuth from '@/app/api/useAuth';
 
+import Link from 'next/link';
+
 const csrfToken = Cookies.get('csrftoken');
 
 interface Props {
@@ -147,10 +149,13 @@ const loginlogic = ({ onSubmit }: any) => {
         >
             Login
         </Button>
+
         <div className="flex flex-col items-center mt-4">
             <a href="#" className="text-purple-600 hover:underline mb-2">Forgot Password?</a>
             <span className="text-gray-600">Don't have an account?</span>
-            <a href="#" className="text-purple-600 hover:underline">Sign in here</a>
+            <Link href="/signin"> 
+          <span className="text-purple-600 hover:underline">Sign up here</span>
+        </Link>
         </div>
         {error && (
             <Alert className="mt-4">
@@ -158,6 +163,8 @@ const loginlogic = ({ onSubmit }: any) => {
                 <AlertDescription className="text-red-500">{error}</AlertDescription>
             </Alert>
         )}
+
+
     </form>
 );
 };

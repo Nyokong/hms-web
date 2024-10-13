@@ -31,7 +31,7 @@ export default function Navbar() {
                         </Link>
 
                         <Link href="/signin" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
-                            Sign In
+                            Sign Up
                         </Link>
 
                         <Link href="/login" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
@@ -92,7 +92,7 @@ export default function Navbar() {
                         href="/signin"
                         className="text-gray-700 hover:text-purple-600 block px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
                     >
-                        Sign In
+                        Sign Up
                     </Link>
                     <Link
                         href="/login"
