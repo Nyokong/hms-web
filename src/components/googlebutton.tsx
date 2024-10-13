@@ -11,7 +11,7 @@ export default function GoogleLoginButton() {
     const google = () => {
         const clientID = process.env.CLIENT_ID;
         const callbackUrl = 'http://localhost:3000/success/';
-      
+
         // Constructing the OAuth URL
         const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${callbackUrl}&prompt=consent&response_type=code&client_id=${clientID}&scope=openid%20email%20profile&access_type=online`;
 

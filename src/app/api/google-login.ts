@@ -53,7 +53,8 @@ export function getGoogleToken(code: string): void {
                 }); // Expires in 2 hours
                 setCookie('is_lect', user.is_lecturer, { maxAge: 60 * 60 * 2 });
             } else {
-                setCookie('is_lect', user.is_lecturer, { maxAge: 60 * 60 * 2 });
+                setCookie('id', user.id, { maxAge: 60 * 60 * 1 });
+                setCookie('is_lect', user.is_lecturer, { maxAge: 60 * 60 * 1 });
             }
 
             // return response.data;
