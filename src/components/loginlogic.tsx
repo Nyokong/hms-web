@@ -14,8 +14,10 @@ import axios from 'axios';
 
 // import for cookies
 import useAuth from '@/app/api/useAuth';
+import { getCookie, setCookie } from 'cookies-next';
+import GoogleLoginButton from './googlebutton';
 
-const csrfToken = Cookies.get('csrftoken');
+const csrfToken = getCookie('csrfToken');
 
 interface Props {
     onSubmit: string;
@@ -46,13 +48,13 @@ const loginlogic = ({ onSubmit }: any) => {
     };
 
     useEffect(() => {
-        const loggedIn = Cookies.get('access_token');
+        const loggedIn = getCookie('access_token');
         if (loggedIn) {
             // set is logged in true
             setIsLoggedIn(true);
             // successfully checked if the user is logged in
             if (user) {
-                router.push(`/profile/${user.id}`);
+                router.push(`/dashboard/${user.id}`);
             }
         }
     }, []);
@@ -77,8 +79,8 @@ const loginlogic = ({ onSubmit }: any) => {
                 },
             );
 
-            Cookies.set('access_token', response.data.access, { expires: 1 });
-            Cookies.set('refresh_token', response.data.refresh, { expires: 7 });
+            setCookie('access_token', response.data.access, { expires: 1 });
+            setCookie('refresh_token', response.data.refresh, { expires: 7 });
 
             // get token
             if (response.data.access) {
@@ -88,7 +90,7 @@ const loginlogic = ({ onSubmit }: any) => {
                 // wait 3 seconds before redirecting
                 const timer = setTimeout(() => {
                     if (user) {
-                        router.push(`/profile/${user.id}`);
+                        router.push(`/dashboard/${user.id}`);
                     }
                 }, 1000);
             } else {
@@ -149,7 +151,10 @@ const loginlogic = ({ onSubmit }: any) => {
         <div className="flex flex-col items-center mt-4">
             <a href="#" className="text-purple-600 hover:underline mb-2">Forgot Password?</a>
             <span className="text-gray-600">Don't have an account?</span>
-            <a href="#" className="text-purple-600 hover:underline">Sign in here</a>
+            {/* <a href="#" className="text-purple-600 hover:underline">Sign in here</a> */}
+            <div className='w-full h-[60px] flex flex-row justify-center items-center mt-3 mb-3'>
+                <GoogleLoginButton/>
+            </div>
         </div>
         {error && (
             <Alert className="mt-4">
