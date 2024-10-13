@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 // import for cookies
-import Cookies from 'js-cookie';
 import useAuth from '@/app/api/useAuth';
 
 const csrfToken = Cookies.get('csrftoken');
