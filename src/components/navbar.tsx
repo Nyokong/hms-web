@@ -15,29 +15,43 @@ export default function Navbar() {
                 <div className="flex justify-between h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
-                        <Link href="/" className="text-2xl font-bold text-gray-900">
+                        <Link
+                            href="/"
+                            className="text-2xl font-bold text-gray-900"
+                        >
                             HMS Website
                         </Link>
                     </div>
 
                     {/* Links */}
                     <div className="hidden md:flex space-x-8 items-center">
-                        <Link href="/" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
+                        <Link
+                            href="/"
+                            className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
+                        >
                             Home
                         </Link>
 
-                        <Link href="#about" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
+                        <Link
+                            href="#about"
+                            className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
+                        >
                             About Us
                         </Link>
 
-                        <Link href="/signin" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
+                        <Link
+                            href="/signin"
+                            className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
+                        >
                             Sign In
                         </Link>
 
-                        <Link href="/login" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
-                                Login
-                            </Link>
-
+                        <Link
+                            href="/login"
+                            className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
+                        >
+                            Login
+                        </Link>
                     </div>
 
                     {/* Hamburger Menu (Mobile) */}

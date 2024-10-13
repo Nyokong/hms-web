@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { refreshToken } from '@/app/api/refresh';
-import { getCookie,setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 interface User {
     id: number;
     username: string;
     email: string;
-    first_name: string,
-    student_number: string
+    first_name: string;
+    student_number: string;
     // Add other user fields if needed
 }
 
@@ -16,7 +16,7 @@ interface AuthState {
     user: User | null;
     loggedIn: boolean;
     loading: boolean;
-    offline: boolean,
+    offline: boolean;
     error: string | null;
 }
 
@@ -35,15 +35,11 @@ const useAuth = () => {
         const accessToken = getCookie('access_token');
         const userData = getCookie('user_data');
 
-        
-    
         if (!accessToken) {
             // If there's no access token, do nothing
             return;
         }
 
-        
-    
         if (userData) {
             // If user data is already stored in the cookie, use it
             setAuthState({
@@ -58,7 +54,7 @@ const useAuth = () => {
             // console.log(JSON.parse(userData));
             return;
         }
-        
+
         /** 
         try {
             const response = await axios.get<User>('http://127.0.0.1:8000/api/usr/profile', {
@@ -117,13 +113,11 @@ const useAuth = () => {
             }
         }*/
     };
-    
+
     // Run checkUserAuthentication when the component mounts
     useEffect(() => {
         checkUserAuthentication();
     }, []);
-    
-
 
     return authState;
 };

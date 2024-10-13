@@ -6,7 +6,6 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-
 import { refreshToken } from '@/app/api/refresh';
 
 import checkUserAuthentication from '@/app/api/authentication';
@@ -23,7 +22,6 @@ import Headerlinks from './headerlinks';
 import { getGoogleToken } from '@/app/api/google-login';
 import { getCookie } from 'cookies-next';
 // import Googlebutton from './googlebutton';
-
 
 export default function Header() {
     const { user, loggedIn, loading, offline, error } = useAuth();
@@ -82,4 +80,3 @@ export default function Header() {
         );
     }
 }
-

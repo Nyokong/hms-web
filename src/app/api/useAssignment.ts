@@ -34,7 +34,7 @@ const useAssignments = () => {
         // {"id":2,"username":"music","first_name":"Callmekay","email":"mikewolfnyokong@gmail.com","student_number":"31499677"}'
         console.log(`Assignment Data: ${assignmentData}`);
 
-        if(assignmentData != null){
+        if (assignmentData != null) {
             setAssignmentState({
                 assignmentData: JSON.parse(assignmentData),
                 a_notfound: false,
@@ -44,10 +44,12 @@ const useAssignments = () => {
             });
             return;
         }
-        
+
         try {
-            if(parsed){
-                const response = await axios.get<Assignment>(`http://localhost:8000/api/assign/view/${parsed.id}`);
+            if (parsed) {
+                const response = await axios.get<Assignment>(
+                    `http://localhost:8000/api/assign/view/${parsed.id}`,
+                );
                 if (response.data) {
                     setAssignmentState({
                         assignmentData: response.data,
@@ -58,9 +60,12 @@ const useAssignments = () => {
                     });
 
                     console.log(response.data);
-            }
+                }
                 // set localstorage data
-                localStorage.setItem('assignments_data', JSON.stringify(response.data));
+                localStorage.setItem(
+                    'assignments_data',
+                    JSON.stringify(response.data),
+                );
             } else {
                 setAssignmentState({
                     assignmentData: null,

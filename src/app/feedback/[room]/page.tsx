@@ -1,11 +1,11 @@
 'use client';
 
-import { useParams  } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import WebSocketFile from '@/components/websockets';
 import MessagesPrint from '@/components/messages';
 
 const FeedbackPage = () => {
-    const params = useParams ();
+    const params = useParams();
     const room = params.room;
 
     return (
@@ -16,6 +16,5 @@ const FeedbackPage = () => {
         </div>
     );
 };
-
 
 export default FeedbackPage;

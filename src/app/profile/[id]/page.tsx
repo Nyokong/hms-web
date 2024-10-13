@@ -4,7 +4,6 @@ import React from 'react';
 import useAuth from '@/app/api/useAuth';
 import { useRouter } from 'next/navigation';
 
-
 // components
 import Logout from '@/components/logout';
 import { Label } from '@/components/ui/label';
