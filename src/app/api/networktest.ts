@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 
 const useNetworkStatus = () => {
-    const [connectionType, setConnectionType] = useState<string | undefined>(undefined);
+    const [connectionType, setConnectionType] = useState<string | undefined>(
+        undefined,
+    );
 
     useEffect(() => {
         const updateConnectionStatus = () => {
@@ -13,12 +15,18 @@ const useNetworkStatus = () => {
         updateConnectionStatus();
 
         if (navigator.connection) {
-            navigator.connection.addEventListener('change', updateConnectionStatus);
+            navigator.connection.addEventListener(
+                'change',
+                updateConnectionStatus,
+            );
         }
 
         return () => {
             if (navigator.connection) {
-                navigator.connection.removeEventListener('change', updateConnectionStatus);
+                navigator.connection.removeEventListener(
+                    'change',
+                    updateConnectionStatus,
+                );
             }
         };
     }, []);

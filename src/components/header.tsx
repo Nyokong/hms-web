@@ -6,7 +6,6 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-
 import { refreshToken } from '@/app/api/refresh';
 
 import checkUserAuthentication from '@/app/api/authentication';
@@ -20,10 +19,9 @@ const Loading = React.lazy(() => import('@/app/loading'));
 import useAuth from '@/app/api/useAuth';
 // my components
 import Headerlinks from './headerlinks';
-import { getGoogleToken } from '@/app/api/google-login';
+// import { getGoogleToken } from '@/app/api/google-login';
 import { getCookie } from 'cookies-next';
 // import Googlebutton from './googlebutton';
-
 
 export default function Header() {
     const { user, loggedIn, loading, offline, error } = useAuth();
@@ -38,8 +36,7 @@ export default function Header() {
             if (code) {
                 console.log(code);
                 try {
-                    await getGoogleToken(code);
-
+                    // await getGoogleToken(code);
                     // console.log(data);
                 } catch (err) {
                     console.error('Error fetching Google token:', err);
@@ -82,4 +79,3 @@ export default function Header() {
         );
     }
 }
-

@@ -4,6 +4,7 @@ import React from 'react';
 import LoginLogic from "@/components/loginlogic";
 import Link from 'next/link'; 
 
+import LoginLogic from '@/components/loginlogic';
 
 export default function Page() {
   return (
@@ -20,6 +21,5 @@ export default function Page() {
       </div>
     </div>
   );
+  
 }
-
-

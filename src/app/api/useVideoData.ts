@@ -35,7 +35,7 @@ const useVideoData = () => {
         // Retrieving data
         const videoData = localStorage.getItem('videos_data');
 
-        if(videoData){
+        if (videoData) {
             setVideoState({
                 videodata: JSON.parse(videoData),
                 notfound: false,
@@ -45,9 +45,11 @@ const useVideoData = () => {
             });
             return;
         }
-        
+
         try {
-            const response = await axios.get<Video[]>('http://localhost:8000/api/vd/view');
+            const response = await axios.get<Video[]>(
+                'http://localhost:8000/api/vd/view',
+            );
             if (response.data && response.data.length > 0) {
                 setVideoState({
                     videodata: response.data,
@@ -58,7 +60,10 @@ const useVideoData = () => {
                 });
 
                 // set localstorage data
-                localStorage.setItem('videos_data', JSON.stringify(response.data));
+                localStorage.setItem(
+                    'videos_data',
+                    JSON.stringify(response.data),
+                );
             } else {
                 setVideoState({
                     videodata: null,

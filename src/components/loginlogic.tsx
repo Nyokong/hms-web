@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,12 +13,17 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 // import for cookies
-import Cookies from 'js-cookie';
 import useAuth from '@/app/api/useAuth';
+import { getCookie, setCookie } from 'cookies-next';
+import GoogleLoginButton from './googlebutton';
 
+<<<<<<< HEAD
 import Link from 'next/link';
 
 const csrfToken = Cookies.get('csrftoken');
+=======
+const csrfToken = getCookie('csrfToken');
+>>>>>>> fa6de624077348471ad9dd31b7cfdb1e3dd00e29
 
 interface Props {
     onSubmit: string;
@@ -49,13 +54,13 @@ const loginlogic = ({ onSubmit }: any) => {
     };
 
     useEffect(() => {
-        const loggedIn = Cookies.get('access_token');
+        const loggedIn = getCookie('access_token');
         if (loggedIn) {
             // set is logged in true
             setIsLoggedIn(true);
             // successfully checked if the user is logged in
             if (user) {
-                router.push(`/profile/${user.id}`);
+                router.push(`/dashboard/${user.id}`);
             }
         }
     }, []);
@@ -80,8 +85,8 @@ const loginlogic = ({ onSubmit }: any) => {
                 },
             );
 
-            Cookies.set('access_token', response.data.access, { expires: 1 });
-            Cookies.set('refresh_token', response.data.refresh, { expires: 7 });
+            setCookie('access_token', response.data.access, { expires: 1 });
+            setCookie('refresh_token', response.data.refresh, { expires: 7 });
 
             // get token
             if (response.data.access) {
@@ -91,7 +96,7 @@ const loginlogic = ({ onSubmit }: any) => {
                 // wait 3 seconds before redirecting
                 const timer = setTimeout(() => {
                     if (user) {
-                        router.push(`/profile/${user.id}`);
+                        router.push(`/dashboard/${user.id}`);
                     }
                 }, 1000);
             } else {
@@ -125,6 +130,7 @@ const loginlogic = ({ onSubmit }: any) => {
         }
     };
     return (
+<<<<<<< HEAD
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
         <Label className="text-2xl font-bold text-purple-600 mb-8">Login Here:</Label>
         <Input
@@ -167,6 +173,61 @@ const loginlogic = ({ onSubmit }: any) => {
 
     </form>
 );
+=======
+        <div>
+            <form
+                onSubmit={handleSubmit}
+                className="flex flex-col justify-center items-center"
+            >
+                <Label className="text-2xl font-bold text-purple-600 mb-8">
+                    Login Here:
+                </Label>
+                <Input
+                    placeholder="Username"
+                    className="m-2 p-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                />
+                <Input
+                    placeholder="Password"
+                    className="m-2 p-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
+                <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white py-2 rounded-lg mt-4 shadow-md transition duration-300 ease-in-out"
+                >
+                    Login
+                </Button>
+                {error && (
+                    <Alert className="mt-4">
+                        <AlertTitle className="font-semibold text-red-600">
+                            Alert
+                        </AlertTitle>
+                        <AlertDescription className="text-red-500">
+                            {error}
+                        </AlertDescription>
+                    </Alert>
+                )}
+            </form>
+            <div className="flex flex-col items-center mt-4">
+                <a href="#" className="text-purple-600 hover:underline mb-2">
+                    Forgot Password?
+                </a>
+                <span className="text-gray-600">Don't have an account?</span>
+                {/* <a href="#" className="text-purple-600 hover:underline">Sign in here</a> */}
+                <div className="w-full h-[60px] flex flex-row justify-center items-center mt-3 mb-3">
+                    <GoogleLoginButton />
+                </div>
+            </div>
+        </div>
+    );
+>>>>>>> fa6de624077348471ad9dd31b7cfdb1e3dd00e29
 };
 
 export default loginlogic;
