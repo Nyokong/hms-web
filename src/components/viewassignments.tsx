@@ -63,6 +63,7 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import useDelete from '@/app/api/useDelete';
 
 export default function viewassignments() {
     const {
@@ -82,6 +83,16 @@ export default function viewassignments() {
             setTotalCount(a_length);
         }
     }, []);
+
+    //localhost:8000/api/assign/delete/<int:pk>/${pk}
+    const { deleteItem, isDeleting, delErr } = useDelete(
+        'http://localhost:8000/api/assign/delete',
+    );
+
+    const handleDelete = (id: number) => {
+        console.log(`Deleted ${id}`);
+        deleteItem(id);
+    };
 
     if (assignmentData) {
         return (
@@ -164,7 +175,16 @@ export default function viewassignments() {
                                                             Edit
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem>
-                                                            Delete
+                                                            <Button
+                                                                onClick={() =>
+                                                                    handleDelete(
+                                                                        data.id,
+                                                                    )
+                                                                }
+                                                                className="text-black"
+                                                            >
+                                                                delete
+                                                            </Button>
                                                         </DropdownMenuItem>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>

@@ -77,12 +77,14 @@ import {
 // api hooks
 import useCookieChecker from '@/app/api/useCookie';
 import Loading from './loading';
+
 import Link from 'next/link';
 import { getCookie } from 'cookies-next';
 
 // assugnment components
 import Activeassignments from '@/components/activeassignment';
 import Draftassignments from '@/components/draftassignments';
+import useDelete from '@/app/api/useDelete';
 
 export default function profile() {
     const { user, loggedIn, offline, error } = useAuth();
@@ -329,7 +331,7 @@ export default function profile() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>
                                     <Link
-                                        href="#"
+                                        href={`/dashboard/${user.id}/settings`}
                                         className="flex shrink-0 items-center justify-center gap-2  bg-transparent text-black md:text-base"
                                     >
                                         Settings
@@ -344,7 +346,7 @@ export default function profile() {
                         </DropdownMenu>
                     </header>
                     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                        <Tabs defaultValue="all">
+                        <Tabs defaultValue="all" className="max-lg:h-[1000px]">
                             <div className="flex items-center">
                                 <TabsList>
                                     <TabsTrigger value="all">All</TabsTrigger>
@@ -390,16 +392,26 @@ export default function profile() {
                                         variant="outline"
                                         className="h-7 gap-1"
                                     >
-                                        <File className="h-3.5 w-3.5" />
-                                        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                            Export CSV
-                                        </span>
+                                        <Link
+                                            href={`http://localhost:8000/api/download/csv`}
+                                            className="flex shrink-0 items-center justify-center gap-2 text-white md:text-base hover:text-black"
+                                        >
+                                            <File className="h-3.5 w-3.5" />
+                                            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap text-[14px]">
+                                                Export CSV
+                                            </span>
+                                        </Link>
                                     </Button>
                                     <Button size="sm" className="h-7 gap-1">
-                                        <PlusCircle className="h-3.5 w-3.5" />
-                                        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                            Add Assignment
-                                        </span>
+                                        <Link
+                                            href={`/${user.id}/create`}
+                                            className="flex shrink-0 items-center justify-center gap-2 text-white md:text-base hover:text-white"
+                                        >
+                                            <PlusCircle className="h-3.5 w-3.5" />
+                                            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap text-[13px]">
+                                                Add Assignment
+                                            </span>
+                                        </Link>
                                     </Button>
                                 </div>
                             </div>
