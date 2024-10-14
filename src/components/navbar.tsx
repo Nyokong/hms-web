@@ -31,18 +31,18 @@ export default function Navbar() {
                         >
                             Home
                         </Link>
-
                         <Link
                             href="#about"
                             className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
                         >
                             About Us
                         </Link>
-
-                        <Link href="/signin" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
->>>>>>> fa6de624077348471ad9dd31b7cfdb1e3dd00e29
+                        <Link
+                            href="/signin"
+                            className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
+                        >
+                            Sign Up
                         </Link>
-
                         <Link
                             href="/login"
                             className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
@@ -55,6 +55,8 @@ export default function Navbar() {
                     <div className="-mr-2 flex md:hidden">
                         <button
                             onClick={toggleMenu}
+                            aria-expanded={isOpen}
+                            aria-label="Toggle Navigation Menu"
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-purple-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-purple-600"
                         >
                             <svg

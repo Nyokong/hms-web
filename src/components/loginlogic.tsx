@@ -17,13 +17,7 @@ import useAuth from '@/app/api/useAuth';
 import { getCookie, setCookie } from 'cookies-next';
 import GoogleLoginButton from './googlebutton';
 
-<<<<<<< HEAD
-import Link from 'next/link';
-
-const csrfToken = Cookies.get('csrftoken');
-=======
 const csrfToken = getCookie('csrfToken');
->>>>>>> fa6de624077348471ad9dd31b7cfdb1e3dd00e29
 
 interface Props {
     onSubmit: string;
