@@ -11,18 +11,18 @@ import ProfileDestNav from '../../../components/profileDestNav';
 import Viewassignments from '../../../components/viewassignments';
 
 export default function profile() {
-    const { user, loggedIn, loading, offline, error } = useAuth();
+    const { user, loggedIn, offline, error } = useAuth();
 
     const router = useRouter();
 
-    if (loggedIn || user) {
+    if (user) {
         console.log(user);
         return (
             <div className="flex flex-col items-center w-full">
                 <ProfileDestNav />
 
                 <h1>
-                    {user?.student_number} - {user?.email}
+                    {user.id} {user?.student_number} - {user?.email}
                 </h1>
 
                 <Viewassignments />

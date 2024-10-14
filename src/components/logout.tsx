@@ -23,6 +23,7 @@ export default function logout() {
             deleteCookie('access_token');
             deleteCookie('refresh_token');
             deleteCookie('user_data');
+            deleteCookie('is_lect');
             router.push('/');
         } else {
             console.log('user not logged in');
