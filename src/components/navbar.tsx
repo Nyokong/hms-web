@@ -39,15 +39,7 @@ export default function Navbar() {
                             About Us
                         </Link>
 
-<<<<<<< HEAD
                         <Link href="/signin" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
-                            Sign Up
-=======
-                        <Link
-                            href="/signin"
-                            className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50"
-                        >
-                            Sign In
 >>>>>>> fa6de624077348471ad9dd31b7cfdb1e3dd00e29
                         </Link>
 

@@ -83,24 +83,6 @@ const HomePage = () => {
                 </section>
             </main>
 
-            {/* Footer */}
-            <footer className="bg-gray-800 text-white py-6 text-center">
-                <p>&copy; 2024 NWU Human Movement Sciences</p>
-            </footer>
-        </div>
-        
-        {/* Our Mission Section */}
-        <div className="mt-12 bg-purple-100 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold mb-4 text-black">Our Mission</h3>
-            <p className="text-lg text-black">
-            Our mission is to create a user-friendly system that helps bridge the gap between lecturers and students, 
-            providing faster, more effective feedback and fostering an engaging learning environment.
-            </p>
-        </div>
-        </section>
-
-      </main>
-
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-6 text-center">
         <p>&copy; 2024 NWU Human Movement Sciences</p>
