@@ -4,6 +4,7 @@ import { getCookie } from 'cookies-next';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PlusCircle } from 'lucide-react';
+// import { DatePicker, TimePicker } from '@shadcn/ui';
 
 interface Assignment {
     title: string;
@@ -112,7 +113,7 @@ const CreateAssignment = () => {
                     className="text-black gap-1 h-14 w-28"
                 >
                     <PlusCircle className="h-3.5 w-3.5" />
-                    <span className="sr-only sm:not-sr-only sm:whitespace-nowrap text-[13px] text-black sm:text-black">
+                    <span className="sm:whitespace-nowrap text-[13px] text-black">
                         Add Assignment
                     </span>
                 </Button>
