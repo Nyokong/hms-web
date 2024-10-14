@@ -16,8 +16,9 @@ const useDelete = (url: string) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            // set deleting
             setIsDeleting(false);
-        } catch (err) {
+        } catch (err: any) {
             setError(err);
             setIsDeleting(false);
         }
