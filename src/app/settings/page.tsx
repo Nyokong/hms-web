@@ -1,87 +1,172 @@
-// pages/settings/page.tsx
-
-'use client';
+// src/app/settings/page.tsx
+'use client'; // Ensure this is a client component
 
 import React, { useState } from 'react';
-import Navbar from '../../components/Navbar'; // Adjust path to Navbar based on your structure
 
 const SettingsPage = () => {
-  const [username, setUsername] = useState('JohnDoe');
-  const [email, setEmail] = useState('johndoe@example.com');
-  const [password, setPassword] = useState('');
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [profile, setProfile] = useState({ name: '', email: '' });
+    const [courses, setCourses] = useState<string[]>([]);
+    const [activeTab, setActiveTab] = useState('userPreferences'); // Default tab
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Logic to save updated settings
-    console.log('Settings Saved:', { username, email, password });
-  };
+    const toggleDarkMode = () => {
+        setIsDarkMode((prevMode) => !prevMode);
+        document.body.classList.toggle('dark', !isDarkMode);
+    };
 
-  return (
-    <div className="bg-white min-h-screen">
-      {/* Navbar */}
-      <Navbar />
+    const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProfile({ ...profile, [e.target.name]: e.target.value });
+    };
 
-      {/* Settings Section */}
-      <main className="container mx-auto p-4">
-        <h1 className="text-4xl font-bold mb-8">Account Settings</h1>
+    const addCourse = () => {
+        const courseName = prompt('Enter course name:');
+        if (courseName) {
+            setCourses((prevCourses) => [...prevCourses, courseName]);
+        }
+    };
 
-        <form onSubmit={handleSave} className="bg-gray-100 p-6 rounded-lg shadow-md max-w-lg mx-auto">
-          {/* Username */}
-          <div className="mb-6">
-            <label htmlFor="username" className="block mb-2 text-lg font-medium text-gray-700">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="Enter your username"
-            />
-          </div>
+    const renderContent = () => {
+        switch (activeTab) {
+            case 'userPreferences':
+                return (
+                    <div className="mt-4">
+                        <h2 className="text-xl font-semibold">User Preferences</h2>
+                        <label className="flex items-center">
+                            <input
+                                type="checkbox"
+                                checked={isDarkMode}
+                                onChange={toggleDarkMode}
+                                className="mr-2"
+                            />
+                            Dark Mode
+                        </label>
+                    </div>
+                );
+            case 'profile':
+                return (
+                    <div className="mt-4">
+                        <h2 className="text-xl font-semibold">User Profile</h2>
+                        <input
+                            type="text"
+                            name="name"
+                            value={profile.name}
+                            onChange={handleProfileChange}
+                            placeholder="Name"
+                            className="mt-2 p-2 border rounded w-full"
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            value={profile.email}
+                            onChange={handleProfileChange}
+                            placeholder="Email"
+                            className="mt-2 p-2 border rounded w-full"
+                        />
+                    </div>
+                );
+            case 'password':
+                return (
+                    <div className="mt-4">
+                        <h2 className="text-xl font-semibold">Reset Password</h2>
+                        <input
+                            type="password"
+                            placeholder="New Password"
+                            className="mt-2 p-2 border rounded w-full"
+                        />
+                        <input
+                            type="password"
+                            placeholder="Confirm New Password"
+                            className="mt-2 p-2 border rounded w-full"
+                        />
+                        <button className="mt-2 p-2 bg-purple-600 text-white rounded">
+                            Reset Password
+                        </button>
+                    </div>
+                );
+            case 'notifications':
+                return (
+                    <div className="mt-4">
+                        <h2 className="text-xl font-semibold">Notification Preferences</h2>
+                        <label className="flex items-center">
+                            <input type="checkbox" className="mr-2" />
+                            Email Notifications
+                        </label>
+                        <label className="flex items-center">
+                            <input type="checkbox" className="mr-2" />
+                            SMS Notifications
+                        </label>
+                    </div>
+                );
+            case 'courses':
+                return (
+                    <div className="mt-4">
+                        <h2 className="text-xl font-semibold">Course Management</h2>
+                        <button
+                            onClick={addCourse}
+                            className="mt-2 p-2 bg-purple-600 text-white rounded"
+                        >
+                            Add Course
+                        </button>
+                        <h3 className="mt-2">Current Courses:</h3>
+                        <ul>
+                            {courses.map((course, index) => (
+                                <li key={index} className="mt-1">
+                                    {course}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
 
-          {/* Email */}
-          <div className="mb-6">
-            <label htmlFor="email" className="block mb-2 text-lg font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="Enter your email"
-            />
-          </div>
+    return (
+        <div className={`flex ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+            {/* Vertical Tabs */}
+            <div className="w-1/4 p-4 bg-purple-500 text-white">
+                <h1 className="text-2xl font-bold mb-4">Settings</h1>
+                <button
+                    onClick={() => setActiveTab('userPreferences')}
+                    className={`block p-2 mb-2 rounded ${activeTab === 'userPreferences' ? 'bg-purple-700' : ''}`}
+                >
+                    User Preferences
+                </button>
+                <button
+                    onClick={() => setActiveTab('profile')}
+                    className={`block p-2 mb-2 rounded ${activeTab === 'profile' ? 'bg-purple-700' : ''}`}
+                >
+                    Profile
+                </button>
+                <button
+                    onClick={() => setActiveTab('password')}
+                    className={`block p-2 mb-2 rounded ${activeTab === 'password' ? 'bg-purple-700' : ''}`}
+                >
+                    Reset Password
+                </button>
+                <button
+                    onClick={() => setActiveTab('notifications')}
+                    className={`block p-2 mb-2 rounded ${activeTab === 'notifications' ? 'bg-purple-700' : ''}`}
+                >
+                    Notifications
+                </button>
+                <button
+                    onClick={() => setActiveTab('courses')}
+                    className={`block p-2 mb-2 rounded ${activeTab === 'courses' ? 'bg-purple-700' : ''}`}
+                >
+                    Courses
+                </button>
+            </div>
 
-          {/* Password */}
-          <div className="mb-6">
-            <label htmlFor="password" className="block mb-2 text-lg font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="Enter your password"
-            />
-          </div>
-
-          {/* Save Button */}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700 transition duration-300"
-          >
-            Save Changes
-          </button>
-        </form>
-      </main>
-    </div>
-  );
+            {/* Tab Content */}
+            <div className="w-3/4 p-4">
+                {renderContent()}
+            </div>
+        </div>
+    );
 };
 
 export default SettingsPage;
+
+
