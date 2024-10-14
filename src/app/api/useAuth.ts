@@ -38,19 +38,19 @@ const useAuth = () => {
             return;
         }
 
-        if (userData) {
-            // If user data is already stored in the cookie, use it
-            setAuthState({
-                user: JSON.parse(userData),
-                loggedIn: true,
-                offline: false,
-                error: null,
-            });
+        // if (userData) {
+        //     // If user data is already stored in the cookie, use it
+        //     setAuthState({
+        //         user: JSON.parse(userData),
+        //         loggedIn: true,
+        //         offline: false,
+        //         error: null,
+        //     });
 
-            // console.log(authState);
-            console.log(JSON.parse(userData));
-            return;
-        }
+        //     // console.log(authState);
+        //     // console.log(JSON.parse(userData));
+        //     return;
+        // }
 
         try {
             const response = await axios.get<User>(

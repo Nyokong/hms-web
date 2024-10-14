@@ -64,29 +64,43 @@ import {
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default function viewassignments() {
-    const {
-        assignmentData,
-        a_notfound,
-        a_found,
-        a_loading,
-        a_error,
-        a_length,
-    } = useAssignments();
+export default function activeassignments() {
+    const { assignmentData, a_notfound, a_found, a_loading, a_error } =
+        useAssignments();
+
+    const calculateTotalCount = obj => {
+        let totalCount = 0;
+
+        const countValues = value => {
+            if (Array.isArray(value)) {
+                totalCount += value.length;
+            } else if (typeof value === 'object' && value !== null) {
+                Object.values(value).forEach(countValues);
+            } else {
+                totalCount += 1;
+            }
+        };
+
+        countValues(obj);
+        return totalCount;
+    };
 
     const [total_count, setTotalCount] = useState(0);
 
     useEffect(() => {
-        // console.log(JSON.parse(assignmentData));
-        if (a_length > 0) {
-            setTotalCount(a_length);
-        }
+        const count = calculateTotalCount(assignmentData);
+        setTotalCount(count);
     }, []);
 
+    // list/assign/
     if (assignmentData) {
+        // Filter the array to only include active users
+        const filteredArray = assignmentData.filter(
+            data => data.status === 'active',
+        );
         return (
             <div>
-                <TabsContent value="all">
+                <TabsContent value="active">
                     <Card x-chunk="dashboard-06-chunk-0">
                         <CardHeader>
                             <CardTitle>Assignments</CardTitle>
@@ -121,7 +135,7 @@ export default function viewassignments() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {assignmentData.map(data => (
+                                    {filteredArray.map(data => (
                                         <TableRow key={data.id}>
                                             <TableCell className="hidden sm:table-cell">
                                                 {data.id}

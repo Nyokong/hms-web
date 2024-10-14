@@ -1,21 +1,44 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { getCookie, setCookie } from 'cookies-next';
 
 async function refreshToken() {
     try {
-        const access_token = Cookies.get('access_token');
+        const accessToken = getCookie('access_token');
+        const tokenCreated = getCookie('token_created');
+        const tokenCreatedTimestamp = tokenCreated
+            ? parseInt(tokenCreated, 10)
+            : 0;
 
-        const refresh = Cookies.get('refresh_token');
+        if (accessToken && tokenCreated) {
+            const now = Math.floor(Date.now() / 1000); // current time in seconds
+            const tokenAge = now - tokenCreatedTimestamp;
 
+            if (tokenAge < 3600) {
+                // 1 hour
+                console.log('Still have access token');
+                return;
+            }
+        }
+
+        const refresh = getCookie('refresh_token');
         if (refresh) {
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/token/refresh/',
+                { refresh },
+            );
+
+            setCookie('access_token', response.data.access, {
+                maxAge: 60 * 60 * 1, // 1 hour
+            });
+            setCookie(
+                'token_created',
+                Math.floor(Date.now() / 1000).toString(),
                 {
-                    refresh,
+                    maxAge: 60 * 60 * 1, // 1 hour
                 },
             );
 
-            Cookies.set('access_token', response.data.access, { expires: 1 });
+            console.log('Access token refreshed');
         }
     } catch (error) {
         console.error('Token refresh failed:', error);
@@ -24,4 +47,4 @@ async function refreshToken() {
 
 export { refreshToken };
 
-// refreshToken();
+refreshToken();

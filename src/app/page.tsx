@@ -32,7 +32,7 @@ export default function Home() {
 
     useEffect(() => {
         if (loggedIn && user) {
-            router.push(`/profile/${user.id}`);
+            router.push(`/dashboard/${user.id}`);
         }
     }, [loggedIn, user, router]);
 

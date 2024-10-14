@@ -31,13 +31,16 @@ export default function logout() {
         }
     };
     return (
-        <div>
+        <div
+            className="cursor-pointer
+                            w-full h-[40px] "
+        >
             <Button
-                className='flex flex-row ml-4 mr-4 justify-center
-                            w-[120px] h-[50px] rounded-[50px] text-white hover:bg-slate-600"'
+                className="flex flex-row justify-between px-4 cursor-pointer
+                            w-full h-[40px] bg-red-600 text-white hover:bg-red-700"
                 onClick={handleLogout}
             >
-                <p className="mx-2">Logout</p> <MdOutlineLogout />
+                <p>Logout</p> <MdOutlineLogout />
             </Button>
         </div>
     );
