@@ -1,6 +1,7 @@
 // pages/index.tsx
 import React from 'react';
 import Navbar from '../components/Navbar';
+import CookiesPrompt from './cookiesPrompt';
 
 
 const HomePage = () => {
@@ -57,13 +58,15 @@ const HomePage = () => {
             </p>
         </div>
         </section>
-        
+
       </main>
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-6 text-center">
         <p>&copy; 2024 NWU Human Movement Sciences</p>
       </footer>
+
+      <CookiesPrompt/>
     </div>
   );
 };
