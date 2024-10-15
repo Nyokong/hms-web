@@ -1,10 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
 import axios from 'axios';
+
+// extra
 import { getCookie } from 'cookies-next';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PlusCircle } from 'lucide-react';
 import { Calendar } from './ui/calendar';
+import { Label } from './ui/label';
 
 // import { DatePicker, TimePicker } from '@shadcn/ui';
 import {
@@ -114,7 +119,7 @@ const CreateAssignment = () => {
             <h1>Create Assignment</h1>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
-                <Input
+                {/* <Input
                     type="text"
                     name="title"
                     value={formData.title}
@@ -150,7 +155,7 @@ const CreateAssignment = () => {
                         <SelectItem value="light">Active</SelectItem>
                         <SelectItem value="dark">Draft</SelectItem>
                     </SelectContent>
-                </Select>
+                </Select> */}
 
                 <Popover>
                     <PopoverTrigger className="m-2 p-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500">
@@ -166,7 +171,7 @@ const CreateAssignment = () => {
                     </PopoverContent>
                 </Popover>
 
-                <Button
+                {/* <Button
                     type="submit"
                     size="sm"
                     className="text-black gap-1 h-14 w-28"
@@ -175,7 +180,7 @@ const CreateAssignment = () => {
                     <span className=" text-[13px] text-black">
                         Add Assignment
                     </span>
-                </Button>
+                </Button> */}
             </form>
         </div>
     );
