@@ -69,19 +69,12 @@ import {
 } from '@/components/ui/popover';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 import useDelete from '@/app/api/useDelete';
-import createassignment from './createassignment';
 import Createassignment from './createassignment';
 
 export default function viewassignments() {
-    const {
-        assignmentData,
-        a_notfound,
-        a_found,
-        a_loading,
-        a_error,
-        a_length,
-    } = useAssignments();
+    const { assignmentData, a_loading, a_error } = useAssignments();
 
     const [total_count, setTotalCount] = useState(0);
 
@@ -102,7 +95,7 @@ export default function viewassignments() {
         return (
             <div>
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                    <Tabs defaultValue="all" className="max-lg:h-[1000px]">
+                    <Tabs defaultValue="all" className="max-lg:h-auto mt-4">
                         <div className="flex items-center">
                             <TabsList>
                                 <TabsTrigger value="all">All</TabsTrigger>
@@ -194,24 +187,24 @@ export default function viewassignments() {
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {assignmentData.map(data => (
-                                                <TableRow key={data.id}>
+                                            {assignmentData.map(item => (
+                                                <TableRow key={item.id}>
                                                     <TableCell className="hidden sm:table-cell">
-                                                        {data.id}
+                                                        {item.id}
                                                     </TableCell>
                                                     <TableCell className="font-medium">
-                                                        {data.title}
+                                                        {item.title}
                                                     </TableCell>
                                                     <TableCell>
                                                         <Badge variant="outline">
-                                                            {data.status}
+                                                            {item.status}
                                                         </Badge>
                                                     </TableCell>
                                                     <TableCell className="hidden md:table-cell">
-                                                        {data.total_submissions}
+                                                        {item.total_submissions}
                                                     </TableCell>
                                                     <TableCell className="hidden md:table-cell">
-                                                        {data.created_at}
+                                                        {item.created_at}
                                                     </TableCell>
                                                     <TableCell>
                                                         <DropdownMenu>
@@ -241,7 +234,7 @@ export default function viewassignments() {
                                                                     <Button
                                                                         onClick={() =>
                                                                             handleDelete(
-                                                                                data.id,
+                                                                                item.id,
                                                                             )
                                                                         }
                                                                         disabled={

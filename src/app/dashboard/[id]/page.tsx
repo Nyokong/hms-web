@@ -83,8 +83,11 @@ import { getCookie } from 'cookies-next';
 
 // assugnment components
 import Activeassignments from '@/components/activeassignment';
-import Draftassignments from '@/components/draftassignments';
+import Draftassignments from '@/components/updateassignments';
 import useDelete from '@/app/api/useDelete';
+
+// video component
+import Viewvideo from '@/components/viewvideos';
 
 export default function profile() {
     const { user, loggedIn, offline, error } = useAuth();
@@ -111,6 +114,9 @@ export default function profile() {
 
                 {/* assignment */}
                 <Viewassignments />
+
+                {/* video view */}
+                <Viewvideo />
             </div>
         );
     }
