@@ -63,7 +63,7 @@ const signinlogic = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="flex flex-col justify-center items-center"
+            className="flex flex-col justify-center items-center h-auto p-4"
         >
             <Label className="text-2xl font-bold text-purple-600 mb-8">
                 Sign Up Here:
