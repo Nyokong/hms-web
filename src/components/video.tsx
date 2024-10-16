@@ -8,6 +8,7 @@ interface HlsPlayerProps {
 const HlsPlayer: React.FC<HlsPlayerProps> = ({ videoSrc }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [quality, setQuality] = useState<string>('720p');
     const [hls, setHls] = useState<Hls | null>(null);
 
@@ -18,7 +19,25 @@ const HlsPlayer: React.FC<HlsPlayerProps> = ({ videoSrc }) => {
                 hls.loadSource(videoSrc);
                 hls.attachMedia(videoRef.current);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    setIsLoading(false);
                     videoRef.current?.play();
+                });
+                hls.on(Hls.Events.BUFFER_APPENDING, () => {
+                    setIsLoading(true);
+                });
+                hls.on(Hls.Events.BUFFER_APPENDED, () => {
+                    setIsLoading(false);
+                });
+                hls.on(Hls.Events.ERROR, (_, data) => {
+                    if (
+                        data.fatal &&
+                        data.type === Hls.ErrorTypes.NETWORK_ERROR
+                    ) {
+                        console.error(
+                            'Fatal network error encountered, trying to recover...',
+                        );
+                        hls.startLoad();
+                    }
                 });
             } else if (
                 videoRef.current.canPlayType('application/vnd.apple.mpegurl')
@@ -36,36 +55,19 @@ const HlsPlayer: React.FC<HlsPlayerProps> = ({ videoSrc }) => {
     };
 
     if (!isPlaying) {
-        return <button onClick={handlePlay}>Play</button>;
+        handlePlay();
+        // return <button onClick={handlePlay}>Play</button>;
     }
 
-    // const handleQualityChange = (
-    //     event: React.ChangeEvent<HTMLSelectElement>,
-    // ) => {
-    //     const selectedQuality = event.target.value;
-    //     setQuality(selectedQuality);
-    //     if (hls && videoRef.current) {
-    //         hls.loadSource(`${videoSrc}/${selectedQuality}.m3u8`);
-    //         hls.attachMedia(videoRef.current);
-    //     }
-    // };
-
     return (
-        <div>
-            {/* <div>
-                <label htmlFor="quality">Select Quality: </label>
-                <select
-                    id="quality"
-                    value={quality}
-                    // onChange={handleQualityChange}
-                >
-                    <option value="720p">720p</option>
-                    <option value="480p">480p</option>
-                    <option value="360p">360p</option>
-                    <option value="144p">144p</option>
-                </select>
-            </div> */}
-            <video ref={videoRef} width="400" height="280" controls />
+        <div className="h-auto w-auto container flex justify-center items-center lg:w-[680px] bg-black ">
+            <video
+                className="h-[280px] w-[640px] "
+                ref={videoRef}
+                width="640"
+                height="280"
+                controls
+            />
         </div>
     );
 };
