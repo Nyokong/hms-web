@@ -190,7 +190,7 @@ export default function viewsubmissions() {
                 {isPopUpVideo && (
                     <div className="relative w-full">
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 text-black w-full">
-                            <div className="bg-white p-8 rounded shadow-lg relative sm:w-[400px] sm:mx-[5%]">
+                            <div className="bg-white p-8 rounded shadow-lg relative sm:w-auto sm:mx-[5%] flex justify-center items-center">
                                 <button
                                     onClick={handlevideoClose}
                                     className="absolute top-2 right-2"

@@ -60,9 +60,9 @@ const HlsPlayer: React.FC<HlsPlayerProps> = ({ videoSrc }) => {
     }
 
     return (
-        <div className="h-auto w-full md:w-[70%] container flex justify-center items-center md:justify-start lg:w-[680px] bg-black ">
+        <div className="h-auto w-auto container flex justify-center items-center lg:w-[680px] bg-black ">
             <video
-                className="h-auto w-auto "
+                className="h-[280px] w-[640px] "
                 ref={videoRef}
                 width="640"
                 height="280"
