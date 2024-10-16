@@ -44,8 +44,7 @@
         "react-query": "^3.39.3",
         "select": "^1.1.2",
         "tailwind-merge": "^2.5.2",
-        "tailwindcss-animate": "^1.0.7",
-        "video.js": "^8.17.4"
+        "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
         "@types/node": "20.16.11",

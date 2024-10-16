@@ -1,6 +1,8 @@
+'use client';
+
 import useVideoData from '@/app/api/useVideoData';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import viewAssignment from '@/app/api/useAssignment';
 import ReactPaginate from 'react-paginate';
@@ -68,9 +70,15 @@ import {
 } from '@/components/ui/popover';
 import { Tabs, TabsContent } from './ui/tabs';
 import { Label } from './ui/label';
+import { getCookie } from 'cookies-next';
+import axios from 'axios';
 
-export default function viewvideo() {
+import { User } from '@/types';
+
+export default function viewstudents() {
     const { videodata, notfound, found, loading, error } = useVideoData();
+
+    const [users, setUsers] = useState<User[]>([]);
 
     const [total_count, setTotalCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
@@ -82,9 +90,32 @@ export default function viewvideo() {
         setCurrentPage(event.selected);
     };
 
+    const access_token = getCookie('access_token');
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get<User[]>(
+                    'http://localhost:8000/api/usrs/students',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${access_token}`,
+                        },
+                    },
+                );
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+        fetchUsers();
+    }, []);
+
+    console.log(users);
+
     // list/assign/
-    if (videodata) {
-        const currentRows = videodata.slice(
+    if (users) {
+        const currentRows = users.slice(
             currentPage * rowsPerPage,
             (currentPage + 1) * rowsPerPage,
         );
@@ -92,7 +123,7 @@ export default function viewvideo() {
         return (
             <div>
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                    <Tabs defaultValue="all" className="max-lg:h-[1000px] mt-7">
+                    <Tabs defaultValue="all" className="max-lg:h-auto mt-7">
                         <div className="flex items-center">
                             <div className="ml-auto flex items-center gap-2">
                                 <DropdownMenu>
@@ -126,9 +157,9 @@ export default function viewvideo() {
                         <TabsContent value="all">
                             <Card x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
-                                    <CardTitle>Videos</CardTitle>
+                                    <CardTitle>Students</CardTitle>
                                     <CardDescription>
-                                        View every video submission
+                                        View all students
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -140,43 +171,79 @@ export default function viewvideo() {
                                                         Image
                                                     </span>
                                                 </TableHead>
-                                                <TableHead>Title</TableHead>
+                                                <TableHead>username</TableHead>
+                                                <TableHead>Email</TableHead>
+                                                <TableHead>Grade</TableHead>
                                                 <TableHead>
-                                                    description
-                                                </TableHead>
-                                                <TableHead>
-                                                    watch link button
+                                                    <span className="sr-only">
+                                                        Actions
+                                                    </span>
                                                 </TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {currentRows &&
-                                                currentRows.map(video => (
-                                                    <TableRow key={video.id}>
-                                                        <TableCell className="hidden sm:table-cell">
-                                                            {video.id}
-                                                        </TableCell>
-                                                        <TableCell className="font-medium">
-                                                            {video.title}
-                                                        </TableCell>
+                                            {currentRows.map((user, index) => (
+                                                <TableRow key={index}>
+                                                    <TableCell className="hidden sm:table-cell">
+                                                        {index + 1}
+                                                    </TableCell>
+                                                    <TableCell className="font-medium">
+                                                        {user.username}
+                                                    </TableCell>
 
-                                                        <TableCell className="font-medium">
-                                                            {video.description}{' '}
-                                                            - watch video -
-                                                            assignment
-                                                        </TableCell>
+                                                    <TableCell className="font-medium">
+                                                        {user.first_name}
+                                                    </TableCell>
 
-                                                        <TableCell className="font-medium">
-                                                            <Button className="mx-2 bg-black text-white ">
-                                                                <Link
-                                                                    href={`/videos/${video.id}`}
+                                                    <TableCell className="font-medium">
+                                                        {user.last_name}
+                                                    </TableCell>
+
+                                                    <TableCell className="font-medium">
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger
+                                                                asChild
+                                                            >
+                                                                <Button
+                                                                    aria-haspopup="true"
+                                                                    size="icon"
+                                                                    variant="ghost"
                                                                 >
-                                                                    watch
-                                                                </Link>
-                                                            </Button>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))}
+                                                                    <MoreHorizontal className="h-4 w-4" />
+                                                                    <span className="sr-only">
+                                                                        Toggle
+                                                                        menu
+                                                                    </span>
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent align="end">
+                                                                <DropdownMenuLabel>
+                                                                    grade me
+                                                                </DropdownMenuLabel>
+                                                                <DropdownMenuItem
+                                                                    // onClick={}
+                                                                    className="cursor-pointer"
+                                                                >
+                                                                    Edit
+                                                                </DropdownMenuItem>
+                                                                {/* <DropdownMenuItem
+                                                                    className="cursor-pointer"
+                                                                    onClick={() =>
+                                                                        handleDelete(
+                                                                            item.id,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {' '}
+                                                                    {isDeleting
+                                                                        ? 'Deleting...'
+                                                                        : 'Delete'}
+                                                                </DropdownMenuItem> */}
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
                                         </TableBody>
                                     </Table>
                                     <ReactPaginate
@@ -185,7 +252,7 @@ export default function viewvideo() {
                                         breakLabel={'...'}
                                         breakClassName={'break-me'}
                                         pageCount={Math.ceil(
-                                            videodata.length / rowsPerPage,
+                                            users.length / rowsPerPage,
                                         )}
                                         marginPagesDisplayed={2}
                                         pageRangeDisplayed={5}

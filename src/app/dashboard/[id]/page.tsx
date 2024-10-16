@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import useAuth from '@/app/api/useAuth';
 import { useRouter } from 'next/navigation';
 
@@ -9,6 +9,7 @@ import Logout from '@/components/logout';
 import { Label } from '@/components/ui/label';
 import ProfileDestNav from '../../../components/profileDestNav';
 import Viewassignments from '../../../components/viewassignments';
+import Usertab from '@/components/usertab';
 
 // icons
 import {
@@ -26,6 +27,7 @@ import {
     ShoppingCart,
     Users2,
     User,
+    X,
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -82,15 +84,19 @@ import Link from 'next/link';
 import { getCookie } from 'cookies-next';
 
 // assugnment components
-import Activeassignments from '@/components/activeassignment';
-import Draftassignments from '@/components/updateassignments';
-import useDelete from '@/app/api/useDelete';
+import useCheckToken from '@/app/api/useCheckToken';
 
 // video component
 import Viewvideo from '@/components/viewvideos';
 
+import Updateuserdata from '../../../components/updateuserdata';
+import Viewstudents from '../../../components/viewstudents';
+import Viewsubmissions from '@/components/viewsubmissions';
+
 export default function profile() {
-    const { user, loggedIn, offline, error } = useAuth();
+    const { user, error } = useAuth();
+
+    const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
     const router = useRouter();
 
@@ -102,6 +108,15 @@ export default function profile() {
         // If there's no access token, do nothing
         return router.push('/');
     }
+    if (!getCookie('loggedin')) {
+        const logged = setTimeout(() => {
+            if (!getCookie('loggedin')) {
+                const logged = setTimeout(() => {
+                    return router.push('/');
+                }, 1000);
+            }
+        }, 5000);
+    }
 
     if (user) {
         // console.log(user);
@@ -110,13 +125,21 @@ export default function profile() {
                 {/* desktop nav */}
                 <ProfileDestNav />
 
-                <Tabs>name</Tabs>
+                <div className="container">
+                    <Usertab />
 
-                {/* assignment */}
-                <Viewassignments />
+                    {/* assignment */}
+                    <Viewassignments />
 
-                {/* video view */}
-                <Viewvideo />
+                    {/* submissions and graded */}
+                    <Viewsubmissions />
+
+                    {/* video view */}
+                    <Viewvideo />
+
+                    {/* student */}
+                    <Viewstudents />
+                </div>
             </div>
         );
     }

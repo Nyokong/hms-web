@@ -25,31 +25,23 @@ import useAuth from './api/useAuth';
 // import Headerlinks from '../components/headerlinks';
 
 export default function Home() {
+    const { user, loggedIn, offline, error } = useAuth();
     // const [isLoggedIn, setIsLoggedIn] = useState(false);
     const router = useRouter();
 
-    const { user, loggedIn, loading, offline, error } = useAuth();
-
     useEffect(() => {
-        if (loggedIn && user) {
+        if (user) {
             router.push(`/dashboard/${user.id}`);
         }
-    }, [loggedIn, user, router]);
+    }, [user, router]);
 
-    if (offline) {
+    if (!user) {
         return (
-            // <div className="grid grid-rows-[20px_1fr_20px] min-h-screen gap-16 sm:p-3 font-[family-name:var(--font-geist-sans)]">
-            //     <Header />
-
             <div className="flex justify-center flex-row w-full">
                 <HomePage />
             </div>
             // </div>
         );
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
     }
 
     return (

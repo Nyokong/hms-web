@@ -52,7 +52,7 @@ const useAssignments = () => {
             try {
                 if (parsed) {
                     console.log(`get user with id: ${parsed.id}`);
-                    const response = await axios.get<Assignment>(
+                    const response = await axios.get<Assignment[]>(
                         `http://localhost:8000/api/assign/view/${parsed.id}`,
                     );
                     if (response.data) {

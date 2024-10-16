@@ -71,7 +71,7 @@ export default function profileDestNav() {
 
     if (user) {
         return (
-            <div className="flex flex-row w-full bg-black sm:mb-7 sm:p-5 md:bg-transparent sm:h-auto">
+            <div className="flex flex-row w-full bg-black sm:mb-2 sm:p-2 md:bg-transparent sm:h-auto">
                 <header className="sticky top-0 z-30 flex h-14 my-3 items-center gap-4 border-b bg-black px-4 sm:static sm:h-auto sm:border-0 sm:bg-black sm:px-6 w-full">
                     <Sheet>
                         <SheetTrigger asChild>
@@ -157,7 +157,7 @@ export default function profileDestNav() {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
                                 <Link
-                                    href={``}
+                                    href={`/dashboard/${user.id}/settings`}
                                     className="flex shrink-0 items-center justify-center gap-2  bg-transparent text-black md:text-base"
                                 >
                                     Settings

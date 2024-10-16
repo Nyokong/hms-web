@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Loading from '@/app/loading';
+import Viewsubmissions from '@/components/viewsubmissions';
 
 export default function Settings() {
     const { id } = useParams();

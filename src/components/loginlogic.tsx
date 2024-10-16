@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,7 +14,8 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 // import for cookies
-import useAuth from '@/app/api/useAuth';
+// import useAuth from '@/app/api/useAuth';
+
 import { getCookie, setCookie } from 'cookies-next';
 import GoogleLoginButton from './googlebutton';
 
@@ -28,8 +30,9 @@ interface Props {
 
 const loginlogic = ({ onSubmit }: any) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [id, setID] = useState(0);
 
-    const { user } = useAuth();
+    // const { user } = useAuth();
 
     const [formData, setFormData] = useState<Props[]>({
         username: '',
@@ -52,9 +55,11 @@ const loginlogic = ({ onSubmit }: any) => {
         if (loggedIn) {
             // set is logged in true
             setIsLoggedIn(true);
-            // successfully checked if the user is logged in
-            if (user) {
-                router.push(`/dashboard/${user.id}`);
+
+            if (id > 0) {
+                const time = setTimeout(() => {
+                    router.push(`/dashboard/${id}`);
+                }, 500);
             }
         }
     }, []);
@@ -79,20 +84,42 @@ const loginlogic = ({ onSubmit }: any) => {
                 },
             );
 
-            setCookie('access_token', response.data.access, { expires: 1 });
-            setCookie('refresh_token', response.data.refresh, { expires: 7 });
+            setCookie('access_token', response.data.access, {
+                maxAge: 60 * 60 * 2,
+            });
+            setCookie('refresh_token', response.data.access, {
+                maxAge: 60 * 60 * 6,
+            });
 
             // get token
             if (response.data.access) {
-                // Handle successful response
-                setError('Success'); // Clear any previous errors
+                console.log('user logged in');
+                const cookie = getCookie('access_token');
 
+                const response = await axios.get(
+                    'http://127.0.0.1:8000/api/usr/profile',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${cookie}`,
+                            'X-CSRFToken': csrfToken || '',
+                        },
+                    },
+                );
+
+                if (response.data) {
+                    setID(response.data.id);
+                    const time = setTimeout(() => {
+                        router.push(`/dashboard/${response.data.id}`);
+                    }, 500);
+                }
+                // Handle successful response
+                // setError('Success'); // Clear any previous errors
                 // wait 3 seconds before redirecting
-                const timer = setTimeout(() => {
-                    if (user) {
-                        router.push(`/dashboard/${user.id}`);
-                    }
-                }, 1000);
+                // const timer = setTimeout(() => {
+                //     // if (user) {
+                //         // router.push(`/dashboard/${user.id}`);
+                //     }
+                // }, 500);
             } else {
                 // console.log("Log in failed!");
                 setError('error: Log in failed!');
@@ -107,6 +134,12 @@ const loginlogic = ({ onSubmit }: any) => {
                 // Accessing specific parts of the response
                 if (error.response) {
                     console.error('Response data:', error.response.data.error);
+                    if (error.response.status == 401) {
+                        console.log('wrong password or username');
+                        setError(
+                            `${error.response.data.error} wrong password or username`,
+                        );
+                    }
                     console.error('Response status:', error.response.status);
 
                     // set the error for alert
