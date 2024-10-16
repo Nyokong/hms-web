@@ -24,6 +24,7 @@ export default function logout() {
             deleteCookie('refresh_token');
             deleteCookie('user_data');
             deleteCookie('is_lect');
+            deleteCookie('loggedin');
             router.push('/');
         } else {
             console.log('user not logged in');

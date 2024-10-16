@@ -24,7 +24,7 @@ import { getCookie } from 'cookies-next';
 // import Googlebutton from './googlebutton';
 
 export default function Header() {
-    const { user, loggedIn, loading, offline, error } = useAuth();
+    const { user, error } = useAuth();
 
     const router = useRouter();
 
@@ -63,7 +63,7 @@ export default function Header() {
         checkAccessToken();
     }, [router]);
 
-    if (offline) {
+    if (!user) {
         return (
             <div className="flex flex-row justify-center items-center h-[80px] w-full">
                 <Headerlinks />
