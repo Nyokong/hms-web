@@ -4,7 +4,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Landingpage from '@/components/landingpage';
 
 // components
 import Header from '@/components/header';

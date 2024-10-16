@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import LoginLogic from "@/components/loginlogic";
-import Link from 'next/link'; 
-
+import Signinlogic from '@/components/signinlogic';
+import Link from 'next/link';
 
 export default function Page() {
   return (
@@ -16,9 +15,8 @@ export default function Page() {
         </Link>
       </div>
       <div className="bg-white shadow-lg border-2 border-purple-700 rounded-lg p-10 w-full max-w-md h-[550px] flex flex-col justify-center">
-        <LoginLogic />
+        <Signinlogic />
       </div>
     </div>
   );
-
 }
