@@ -203,7 +203,7 @@ export default function viewsubmissions() {
                     </div>
                 )}
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                    <Tabs defaultValue="all" className="max-lg:h-auto mt-7">
+                    <Tabs defaultValue="all" className="max-lg:h-auto mt-4">
                         <div className="flex items-center">
                             <div className="ml-auto flex items-center gap-2">
                                 <DropdownMenu>
@@ -252,15 +252,15 @@ export default function viewsubmissions() {
                                                     </span>
                                                 </TableHead>
                                                 <TableHead>Student</TableHead>
-                                                <TableHead>
+                                                <TableHead className="hidden md:table-cell">
                                                     Assignment
                                                 </TableHead>
                                                 <TableHead>Video</TableHead>
                                                 <TableHead>Grade</TableHead>
-                                                <TableHead>
+                                                <TableHead className="hidden md:table-cell">
                                                     Letter Grade
                                                 </TableHead>
-                                                <TableHead>
+                                                <TableHead className="hidden md:table-cell">
                                                     Submission at
                                                 </TableHead>
                                                 <TableHead>
@@ -279,7 +279,7 @@ export default function viewsubmissions() {
                                                     <TableCell className="font-medium">
                                                         {sub.student}
                                                     </TableCell>
-                                                    <TableCell className="font-medium">
+                                                    <TableCell className="hidden md:table-cell font-medium">
                                                         {sub.assignment}
                                                     </TableCell>
                                                     <TableCell className="font-medium">
@@ -299,12 +299,12 @@ export default function viewsubmissions() {
                                                             ? sub.grade
                                                             : 'None'}
                                                     </TableCell>
-                                                    <TableCell className="font-medium">
+                                                    <TableCell className="hidden md:table-cell  font-medium">
                                                         {sub.marked
                                                             ? sub.letter_grade
                                                             : 'None'}
                                                     </TableCell>
-                                                    <TableCell className="font-medium">
+                                                    <TableCell className="hidden md:table-cell font-medium">
                                                         {formatDate(
                                                             sub.submitted_at,
                                                         )}

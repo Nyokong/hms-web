@@ -92,7 +92,7 @@ export default function viewvideo() {
         return (
             <div>
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                    <Tabs defaultValue="all" className="max-lg:h-[1000px] mt-7">
+                    <Tabs defaultValue="all" className="max-lg:h-auto mt-4">
                         <div className="flex items-center">
                             <div className="ml-auto flex items-center gap-2">
                                 <DropdownMenu>

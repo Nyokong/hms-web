@@ -63,6 +63,10 @@ const useGoogleToken = (code: string) => {
                         setCookie('refresh_token', tokens.refresh_token, {
                             maxAge: 60 * 60 * 6,
                         });
+
+                        setCookie('loggedin', 'true', {
+                            maxAge: 60 * 60 * 2,
+                        });
                     } else {
                         setError(tokens.id);
                         setCookie('id', tokens.id, { maxAge: 60 * 60 * 1 });

@@ -32,64 +32,7 @@ const useAuth = () => {
             return;
         } else {
             try {
-                const checktoken = await axios.post(
-                    'http://localhost:8000/api/check-token',
-                    {
-                        accessToken,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${refresh_token}`,
-                        },
-                    },
-                );
-
-                if (checktoken.status === 201) {
-                    console.log('token was invalid');
-                    setCookie('access_token', checktoken.data.access_token, {
-                        maxAge: 60 * 60 * 2,
-                    });
-                    setCookie('refresh_token', checktoken.data.refresh_token, {
-                        maxAge: 60 * 60 * 6,
-                    });
-                }
-
-                if (checktoken.data.message == 'Token is valid') {
-                    console.log('Still Valid: Logged in');
-
-                    if (!getCookie('loggedin')) {
-                        setCookie('loggedin', 'true', {
-                            maxAge: 60 * 60 * 2,
-                        });
-                    }
-
-                    if (!getCookie('user_data')) {
-                        const response = await axios.get<User>(
-                            'http://127.0.0.1:8000/api/usr/profile',
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${accessToken}`,
-                                },
-                            },
-                        );
-
-                        // console.log(response.data);
-                        setCookie('user_data', JSON.stringify(response.data), {
-                            maxAge: 3600,
-                        }); // 1 hour
-                        setAuthState({
-                            user: response.data,
-                            error: null,
-                        });
-                    } else {
-                        setAuthState({
-                            user: JSON.parse(getCookie('user_data')),
-                            error: null,
-                        });
-                    }
-                } else {
-                    console.log('token was invalid');
-
+                if (accessToken) {
                     const checktoken = await axios.post(
                         'http://localhost:8000/api/check-token',
                         {
@@ -102,32 +45,112 @@ const useAuth = () => {
                         },
                     );
 
-                    console.log(checktoken.data);
+                    if (checktoken.status === 401) {
+                        console.log('token was invalid');
+                        setCookie(
+                            'access_token',
+                            checktoken.data.access_token,
+                            {
+                                maxAge: 60 * 60 * 2,
+                            },
+                        );
+                        setCookie(
+                            'refresh_token',
+                            checktoken.data.refresh_token,
+                            {
+                                maxAge: 60 * 60 * 6,
+                            },
+                        );
+                    }
+                    // "message":"Token has wrong type"
+                    if (checktoken.data.message == 'Token has wrong type') {
+                        console.log('Wrong type hooowww');
+                    }
 
-                    if (getCookie('user_data')) {
-                        deleteCookie('user_data');
-                        deleteCookie('refresh_token');
-                        deleteCookie('access_token');
-                        deleteCookie('loggedin');
+                    if (checktoken.data.message == 'Token is valid') {
+                        console.log('Still Valid: Logged in');
 
-                        setAuthState({
-                            user: null,
-                            error: null,
-                        });
+                        if (!getCookie('loggedin')) {
+                            setCookie('loggedin', 'true', {
+                                maxAge: 60 * 60 * 2,
+                            });
+                        }
 
-                        if (getCookie('loggedin')) {
+                        if (!getCookie('user_data')) {
+                            const response = await axios.get<User>(
+                                'http://127.0.0.1:8000/api/usr/profile',
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${accessToken}`,
+                                    },
+                                },
+                            );
+
+                            // console.log(response.data);
+                            setCookie(
+                                'user_data',
+                                JSON.stringify(response.data),
+                                {
+                                    maxAge: 3600,
+                                },
+                            ); // 1 hour
+                            setAuthState({
+                                user: response.data,
+                                error: null,
+                            });
+                        } else {
+                            setAuthState({
+                                user: JSON.parse(getCookie('user_data')),
+                                error: null,
+                            });
+                        }
+                    } else {
+                        console.log('token was invalid');
+
+                        const checktoken = await axios.post(
+                            'http://localhost:8000/api/check-token',
+                            {
+                                accessToken,
+                            },
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${accessToken}`,
+                                },
+                            },
+                        );
+
+                        console.log(checktoken.data);
+
+                        if (getCookie('user_data')) {
+                            deleteCookie('user_data');
+                            deleteCookie('refresh_token');
+                            deleteCookie('access_token');
                             deleteCookie('loggedin');
+
+                            setAuthState({
+                                user: null,
+                                error: null,
+                            });
+
+                            if (getCookie('loggedin')) {
+                                deleteCookie('loggedin');
+                            }
                         }
                     }
                 }
             } catch (error) {
                 console.error('Not Logged in:', error);
-                deleteCookie('access_token');
-                deleteCookie('refresh_token');
 
-                if (getCookie('user_data')) {
-                    deleteCookie('user_data');
-                }
+                const timer = setTimeout(() => {
+                    if (!getCookie('access_token')) {
+                        deleteCookie('access_token');
+                        deleteCookie('refresh_token');
+
+                        if (getCookie('user_data')) {
+                            deleteCookie('user_data');
+                        }
+                    }
+                }, 5000);
             }
         }
     };

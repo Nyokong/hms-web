@@ -107,11 +107,19 @@ export default function Success() {
     if (code) {
         const { userData, error, loading } = useGoogleToken(code);
 
+        console.log(getCookie('access_token'));
+
         if (userData) {
+            console.log(userData);
             const timer = setTimeout(() => {
                 router.push(`/dashboard/${userData.id}`);
-            }, 110);
-        } else if (loading) return <div>Loading...</div>;
+            }, 1);
+        } else if (loading)
+            return (
+                <Suspense>
+                    <div></div>
+                </Suspense>
+            );
         if (error) {
             const uid = getCookie('id');
             if (error == uid) {
