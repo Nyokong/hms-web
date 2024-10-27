@@ -1,26 +1,26 @@
 'use client';
 
-import useVideoData from '@/app/api/useVideoData';
-import Link from 'next/link';
+// import useVideoData from '@/app/api/useVideoData';
+// import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
-import viewAssignment from '@/app/api/useAssignment';
+// import viewAssignment from '@/app/api/useAssignment';
 import ReactPaginate from 'react-paginate';
 
 import {
-    File,
-    Home,
-    LineChart,
+    // File,
+    // Home,
+    // LineChart,
     ListFilter,
     MoreHorizontal,
-    Package,
-    Package2,
-    PanelLeft,
-    PlusCircle,
-    Search,
-    Settings,
-    ShoppingCart,
-    Users2,
+    // Package,
+    // Package2,
+    // PanelLeft,
+    // PlusCircle,
+    // Search,
+    // Settings,
+    // ShoppingCart,
+    // Users2,
     X,
 } from 'lucide-react';
 
@@ -57,16 +57,16 @@ import { Label } from './ui/label';
 import { getCookie } from 'cookies-next';
 import axios from 'axios';
 
-import { User } from '@/types';
-import useSubmissions from '@/app/api/useSubmission';
+// import { User } from '@/types';
+// import useSubmissions from '@/app/api/useSubmission';
 
 import Updatesubmission from '@/components/updatesubmission';
 import Viewonevideo from './viewonevideo';
 
 export default function viewsubmissions() {
-    const [total_count, setTotalCount] = useState(0);
+    // const [total_count, setTotalCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
-    const [currentId, setCurrentId] = useState(null);
+    // const [currentId, setCurrentId] = useState(null);
 
     const [submissions, setSubmissions] = useState([]);
     const [grades, setGrades] = useState([]);

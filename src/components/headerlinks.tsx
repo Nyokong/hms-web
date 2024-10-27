@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import RedirectPopUp from './popgooggle';
+// import RedirectPopUp from './popgooggle';
 import Googlebutton from './googlebutton';
 import { Label } from '@radix-ui/react-label';
 

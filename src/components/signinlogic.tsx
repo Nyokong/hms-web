@@ -6,13 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 // import for cookies
 import Cookies from 'js-cookie';
 
-const csrfToken = Cookies.get('csrftoken');
+// const csrfToken = Cookies.get('csrftoken');
 
 const signinlogic = () => {
     const [formData, setFormData] = useState({

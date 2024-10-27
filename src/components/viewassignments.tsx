@@ -1,27 +1,27 @@
 // import useVideoData from '@/app/api/useVideoData';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 // import viewAssignment from '@/app/api/useAssignment';
 import useAssignments from '@/app/api/useAssignment';
 // import Createassignment from './createassignment';
-import updateassignments from './updateassignments';
+// import updateassignments from './updateassignments';
 import ReactPaginate from 'react-paginate';
 
 import {
     File,
-    Home,
-    LineChart,
+    // Home,
+    // LineChart,
     ListFilter,
     MoreHorizontal,
-    Package,
-    Package2,
-    PanelLeft,
+    // Package,
+    // Package2,
+    // PanelLeft,
     PlusCircle,
-    Search,
-    Settings,
-    ShoppingCart,
-    Users2,
+    // Search,
+    // Settings,
+    // ShoppingCart,
+    // Users2,
     X,
 } from 'lucide-react';
 
@@ -35,21 +35,21 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 
 import { Badge } from '@/components/ui/badge';
 
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+// import {
+//     AlertDialog,
+//     AlertDialogAction,
+//     AlertDialogCancel,
+//     AlertDialogContent,
+//     AlertDialogDescription,
+//     AlertDialogFooter,
+//     AlertDialogHeader,
+//     AlertDialogTitle,
+//     AlertDialogTrigger,
+// } from '@/components/ui/alert-dialog';
 
 import {
     Card,
@@ -69,11 +69,11 @@ import {
     TableRow,
 } from '@/components/ui/table';
 
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from '@/components/ui/popover';
+// import {
+//     Popover,
+//     PopoverContent,
+//     PopoverTrigger,
+// } from '@/components/ui/popover';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -87,7 +87,7 @@ export default function viewassignments() {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isCreate, setIsCreateOpen] = useState(false);
 
-    const [total_count, setTotalCount] = useState(0);
+    // const [total_count, setTotalCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [currentId, setCurrentId] = useState(null);
 

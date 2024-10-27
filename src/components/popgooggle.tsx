@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from './ui/button';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 // import for cookies
 import Cookies from 'js-cookie';
