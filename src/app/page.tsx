@@ -36,17 +36,17 @@ export default function Home() {
 
     if (!user) {
         return (
-            <div className="flex justify-center flex-row w-full">
+            <div className="w-full">
                 <HomePage />
             </div>
-            // </div>
         );
     }
 
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] min-h-screen gap-16 sm:p-3 font-[family-name:var(--font-geist-sans)]">
+        // grid grid-rows-[20px_1fr_20px] 
+        <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
             <Header />
-            <div className="flex justify-center flex-row w-full">
+            <div className=" w-full">
                 <HomePage />
             </div>
         </div>

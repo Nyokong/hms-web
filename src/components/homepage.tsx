@@ -5,12 +5,12 @@ import CookiesPrompt from './cookiesPrompt';
 
 const HomePage = () => {
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-white min-h-screen w-full">
             {/* Navbar */}
             <Navbar />
 
             {/* Welcome Section */}
-            <header className="bg-purple-800 text-white text-center py-20">
+            <header className="bg-purple-800 text-white text-center py-20 w-full">
                 <h1 className="text-5xl font-bold mb-4">
                     Welcome to the HMS Faculty Website
                 </h1>
@@ -21,7 +21,7 @@ const HomePage = () => {
             </header>
 
             {/* Main Content */}
-            <main className="container mx-auto p-4 text-black">
+            <main className="w-full text-black">
                 {/* Features Section */}
                 <section className="py-20 text-center shadow-lg bg-gray-100">
                     <h2 className="text-4xl font-semibold mb-6 text-black">

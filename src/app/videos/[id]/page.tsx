@@ -10,9 +10,6 @@ import useNetworkStatus from '@/app/api/networktest';
 
 import HlsPlayer from '@/components/video';
 
-import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
-import Player from 'video.js/dist/types/player';
 import { sources } from 'next/dist/compiled/webpack/webpack';
 import Link from 'next/link';
 import { getCookie } from 'cookies-next';
